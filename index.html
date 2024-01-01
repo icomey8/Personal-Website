@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+</head>
+
+
+<!-- 黄振祈 -->
+
+<body>
+
+    <header class="header-main">
+        <div class="header-main-logo"> <img src="images/icon2.jpeg" alt="personal logo"> </div>
+        <nav class="header-main-nav">
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a href="resume/Resume (Nov. 2023)  (1) copy.pdf">resume</a></li>
+                <li><a href="code.html">projects</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <hr class="solid">
+    
+
+
+    <h1> Hi, my name is <span style="color:#A7BBEC;">Ian Comey / 黄振祈 </span> </h1>
+
+
+    <p>
+        I'm a junior undergraduate student pursuing a BS in Computer Science at Loyola Marymount University.
+        But before that, I was born in Tokyo and raised in Shanghai before moving to Palo Alto in 2010, where I've been based since.
+    </p>
+    
+
+    <p> I'm most interested in Machine Learning and Data Science and prefer to work with backend tools, although I enjoy improving my front end skills outside of school.  In my free time, I like to rock climb, learn new cooking recipes, and play with my labradoodle, Coco.</p>
+
+
+    
+    <div id='map' style='width: 700px; height: 275px; margin-top: 20px;'></div>
+    <script>
+    var map = new maplibregl.Map({
+      container: 'map',
+      style: 'styleA.json', // stylesheet location
+      center: [-176, 32], // starting position [lng, lat]
+      zoom: 1.2 // starting zoom
+    });
+
+    const size = 75;
+
+    // implementation of StyleImageInterface to draw a pulsing dot icon on the map
+    // Search for StyleImageInterface in https://maplibre.org/maplibre-gl-js/docs/API/
+    const pulsingDot = {
+        width: size,
+        height: size,
+        data: new Uint8Array(size * size * 4),
+
+        // get rendering context for the map canvas when layer is added to the map
+        onAdd () {
+            const canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+            this.context = canvas.getContext('2d');
+        },
+
+        // called once before every frame where the icon will be used
+        render () {
+            const duration = 1250;
+            const t = (performance.now() % duration) / duration;
+
+            const radius = (size / 2) * 0.3;
+            const outerRadius = (size / 2) * 0.7 * t + radius;
+            const context = this.context;
+
+            // draw outer circle
+            context.clearRect(0, 0, this.width, this.height);
+            context.beginPath();
+            context.arc(
+                this.width / 2,
+                this.height / 2,
+                outerRadius,
+                0,
+                Math.PI * 2
+            );
+            context.fillStyle = `rgba(167, 187, 236,${1 - t})`;
+            context.fill();
+
+            // draw inner circle
+            context.beginPath();
+            context.arc(
+                this.width / 2,
+                this.height / 2,
+                radius,
+                0,
+                Math.PI * 2
+            );
+            context.fillStyle = 'rgba(167, 187, 236, 1)';
+            context.strokeStyle = 'white';
+            context.lineWidth = 2 + 4 * (1 - t);
+            context.fill();
+            context.stroke();
+
+            // update this image's data with data from the canvas
+            this.data = context.getImageData(
+                0,
+                0,
+                this.width,
+                this.height
+            ).data;
+
+            // continuously repaint the map, resulting in the smooth animation of the dot
+            map.triggerRepaint();
+
+            // return `true` to let the map know that the image was updated
+            return true;
+        }
+    };
+
+    map.on('load', () => {
+        map.addImage('pulsing-dot', pulsingDot, {pixelRatio: 2});
+
+        map.addSource('points', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [139.7744912, 35.6840574]    // Tokyo
+                        }
+                    },
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [121.4691024, 31.2323437]    // Shanghai
+                        }
+                    },
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [-122.1598465, 37.4443293]   // Palo Alto
+                        }
+                    },
+                ]
+            }
+        });
+
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+                'icon-image': 'pulsing-dot'
+            }
+        });
+    });
+
+    map.scrollZoom.disable();
+    map.dragPan.disable();
+    </script>
+
+
+    <hr class="solid" style="margin-top:25px;">
+    <div class="footer-main">
+        <div class="left-col">
+            <p class="col-items" style="font-weight: 800;"> &copy ian comey, 2023</p>
+        </div>
+
+        <div class="right-col">
+            <a class="col-items" href="https://github.com/icomey8" style="font-weight: 800;">github</a>
+            <a class="col-items" href="https://www.linkedin.com/in/ianwhcomey/" style="font-weight: 800;">linkedin</a>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+

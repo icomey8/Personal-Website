@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
+
+
+.header-main {
+    width: 100%;
+    margin-top: 18px;
+    height: 45px;
+    background-color:#212227;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-main-logo {
+    width: fit-content;
+    height: 100%;
+    background-color:#212227;
+    /*padding-left: 50px;*/
+    display: flex;
+}
+
+.header-main-logo img {
+    border-radius: 30%;
+    width: 45px;
+    height: 45px;
+    align-self: center;
+}
+
+
+.header-main-nav {
+    background-color:#212227;
+}
+
+.header-main-nav ul {
+    list-style: none;
+    margin-left: 30px;
+    text-align: right;
+}
+
+.header-main-nav ul li {
+    display: inline;
+    float: left;
+    
+}
+
+.header-main-nav ul li a {
+    padding: 0 10px 0 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+    line-height: 50%;
+    text-align: center;
+    
+
+}
+
+
+.footer-main {  
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.left-col {
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    font-size:x-small;
+    line-height: 14px;
+    height:75px;
+    margin: 0px;
+    padding: 5px;
+
+}
+
+.right-col {
+    font-family: 'DM Sans', sans-serif;
+    text-align: right;
+    font-size: x-small;
+    vertical-align: middle;
+    line-height: 14px;
+    height:75px;
+    margin: 0px;
+    padding: 5px;
+}
+
+.col-items {
+    height: 50%;
+    display: inline;
+    align-items: center;
+}
+
+
+
+
+.solid {    
+    width: 2000px;
+    margin-left: -100%; 
+}
+
+.text-show {
+    color:#A7BBEC;
+    opacity: 1;
+    transition: all 1s ease;
+}
+
+.text-fade {
+    color:#A7BBEC;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+
+body {
+    margin: auto;
+    width: 700px; 
+    background-color: #212227;
+}
+
+h1 {
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+}
+
+p {
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color:white;
+}
+
+a:visited {
+    text-decoration: none;
+    color:white;
+}
+
+a:hover {
+    color:#A7BBEC
+}
+
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 0.5px solid rgb(134, 134, 134);
+    margin: 1em 0;
+    padding: 0;
+  }
+
